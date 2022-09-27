@@ -117,6 +117,7 @@ abstract class Bank {
 		System.out.println("Admin id:" + cda.getAdmin_id());
 		System.out.println("Admin password: " + cda.getAdmin_password());
 		System.out.println("Admin Created Successfully");
+		System.out.println("================================================");
 		System.out.println("Login");
 		boolean choice = true;
 		while (choice) {

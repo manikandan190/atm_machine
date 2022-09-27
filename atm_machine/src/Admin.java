@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 public class Admin extends Bank {
 static	Scanner sc=new Scanner(System.in);
 static Map<Integer,Account_Details> mapaccount=new HashMap<>();
+static Map<Integer,String> search_name=new TreeMap<>();
 static String name,mobileno,emailid,branch,pincode,gender;
 static int user_accno=0;
 static int amount=0;
@@ -41,21 +42,25 @@ if(Bank.store_admin_details.containsKey(admin_id)&&cda.getAdmin_password()==(adm
 
 while(check)	
 {
-		System.out.println("1.Create Account\n 2.Delete Account \n 3.Update Account \n4.List Account \n5.Account Details \n 6.Continue \n 7.LogOut ");
+		System.out.println("1.Create Account\n2.Delete Account \n3.Update Account \n4.List Account \n5.Account Details \n6.Search Name \n7.LogOut ");
+		System.out.println();
 		System.out.println("Enter Your Choice");
 		
 		int choice=sc.nextInt();
+		System.out.println("================================================");
 		switch(choice)
 		{
 		case 1:
 		     createaccountdetails();
 		     System.out.println("Account Created succussfully");
+		     System.out.println("================================================");
 		    break;
 		case 2:
 			System.out.println("Enter the account number");
 			deleteaccno=sc.nextInt();
 			deleteaccount(deleteaccno);
 			System.out.println("Account number deleted successfully.");
+		     System.out.println("================================================");
 			break;
 		case 3:
 			update();
@@ -66,12 +71,18 @@ while(check)
 			printAccount_Details();
 		    break;
 		case 5:
-			viewaccount();
+			System.out.println("Enter the Account Number");
+			accno=sc.nextInt();
+			System.out.println("================================================");
+			viewaccount(accno);
+		     
 			break;
 		case 6:
+			search_name();
 			break;
 		case 7:
 			System.out.println("Logout Successfully");
+		     System.out.println("================================================");
 			check=false;
 			Bank.display();
 			
@@ -84,10 +95,23 @@ else {
 	Bank.display();
 }
 	}
-public static void viewaccount() {
+public static void search_name() {
+	System.out.println("Enter the name");
+	name=sc.next();
+	
+//	List<String> valueList = search_name.values().stream()
+//			.filter(n->n.startsWith(name))
+//			.collect(Collectors.toList());
+
+//	System.out.println("Names" + valueList);
+	search_name.entrySet().stream().filter(map -> map.getValue().startsWith(name))
+    .forEach(m -> viewaccount(m.getKey()));
+	
+	
+}
+public static void viewaccount(int accno) {
 	Scanner sc=new Scanner(System.in);
-	System.out.println("Enter the Account Number");
-	accno=sc.nextInt();
+	
 	Account_Details ad=mapaccount.get(accno);
 	
 	System.out.println("Account Number:"+accno);
@@ -99,6 +123,7 @@ public static void viewaccount() {
 	System.out.println("Pincode :"+ad.getPincode());
 	System.out.println("Bank Name :"+ad.getBank_name());
     System.out.println("Balance Amount : "+ad.getDeposite());
+    System.out.println("================================================");
 	
 }
 public static void createaccountdetails() {
@@ -122,6 +147,8 @@ public static void createaccountdetails() {
     pincode=sc.next();
     System.out.println("Enter your Amount to  deposite");
     deposite = sc.nextInt();
+    search_name.put(user_accno,name);
+    System.out.println("================================================");
    Create_admin_details cda=store_admin_details.get(a_id);
 	
     createaccount(user_accno,name,gender,mobileno,emailid,branch,pincode,deposite,bank_name,cda.getAdmin_id(),cda.getAdmin_name(),user_pin);
@@ -132,7 +159,7 @@ public  static void update() {
 	Scanner sc=new Scanner (System.in);
 	System.out.println("Enter your Account Number");
 	accno=sc.nextInt();
-	
+	System.out.println("================================================");
 	if(mapaccount.containsKey(accno))
 	{
 	System.out.println("To update Enter your choice");
@@ -146,6 +173,9 @@ public  static void update() {
 		 ad=mapaccount.get(accno);
 		ad.setName(change_name);
 		mapaccount.put(accno, mapaccount.getOrDefault(accno, ad));
+		search_name.put(accno, ad.getName());
+		System.out.println(search_name);
+	     System.out.println("================================================");
 		break;
 	case 2:
 		System.out.println("Enter The Gender");
@@ -153,6 +183,7 @@ public  static void update() {
 		 ad=mapaccount.get(accno);
 		ad.setGender(change_gender);
 		mapaccount.put(accno, mapaccount.getOrDefault(accno, ad));
+	     System.out.println("================================================");
 		break;
 	case 3:
 		System.out.println("Enter The Mobile No");
@@ -160,6 +191,7 @@ public  static void update() {
 		ad=mapaccount.get(accno);
 		ad.setMobileno(change_mobileno);
 		mapaccount.put(accno, mapaccount.getOrDefault(accno, ad));
+	     System.out.println("================================================");
 		break;
 	case 4:
 		System.out.println("Enter The Email Id");
@@ -167,6 +199,7 @@ public  static void update() {
 		ad=mapaccount.get(accno);
 		ad.setMobileno(change_emailid);
 		mapaccount.put(accno, mapaccount.getOrDefault(accno, ad));
+	     System.out.println("================================================");
 		break;
 	case 5:
 		System.out.println("Enter The Pincode");
@@ -174,6 +207,7 @@ public  static void update() {
 		ad=mapaccount.get(accno);
 		ad.setMobileno(change_pincode);
 		mapaccount.put(accno, mapaccount.getOrDefault(accno, ad));
+	     System.out.println("================================================");
 		break;
 	case 6:
 		System.out.println("Enter The Branch");
@@ -181,21 +215,25 @@ public  static void update() {
 		ad=mapaccount.get(accno);
 		ad.setBranch(change_branch);
 		mapaccount.put(accno, mapaccount.getOrDefault(accno, ad));
+	     System.out.println("================================================");
 		break;
 	
 		
 	}
 	
 	System.out.println("Account Updated succussfully");
+    System.out.println("================================================");
 	}
 	
 	else {
 		System.out.println("Account Does not Exist");
+		System.out.println("================================================");
 	}
 	
 }
 public static void deleteaccount(int deleteaccno) {
 	mapaccount.remove(deleteaccno);
+	search_name.remove(deleteaccno);
 	
 }
 public static void printAccount_Details() {
@@ -215,6 +253,7 @@ public static void printAccount_Details() {
 		System.out.println("Pincode :"+ad.getPincode());
 		System.out.println("Bank Name :"+ad.getBank_name());
 	    System.out.println("Balance Amount : "+ad.getDeposite());
+	     System.out.println("================================================");
 	    
 	}
 	

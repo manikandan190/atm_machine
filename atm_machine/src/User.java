@@ -19,6 +19,7 @@ public  class User extends Admin{
 			System.out.println("Pincode :"+ad.getPincode());
 			System.out.println("Bank Name :"+ad.getBank_name());
 		    System.out.println("Balance Amount : "+ad.getDeposite());
+		    System.out.println("================================================");
 		    displayacc(user_accno);
 			
 		}
@@ -37,14 +38,18 @@ public  static void displayacc(int user_accno) {
     
     	System.out.println("Enter The Amount");
     	 amount=sc.nextInt();
+    	 System.out.println("================================================");
     	deposite(amount,user_accno);
+    	
     	break;
     
     
     case 2:
     	System.out.println("Enter The Amount to Withdraw");
     	amount=sc.nextInt();
+    	System.out.println("================================================");
     	withdraw(amount,user_accno);
+    	
     	break;
     	
     
@@ -52,9 +57,11 @@ public  static void displayacc(int user_accno) {
     
     	System.out.println("Account Balance");
     	balance(user_accno);
+    	System.out.println("================================================");
     	break;
     case 4:
     	display();
+    	System.out.println("================================================");
     	break;
     	
     }
@@ -67,7 +74,9 @@ public  static void displayacc(int user_accno) {
 		ad.setDeposite(ad.getDeposite()+amount);
 		mapaccount.put(user_accno,ad);
 		System.out.println(ad.getDeposite());
+		System.out.println("================================================");
 		displayacc(user_accno);
+		
 	
 	
 	
@@ -78,7 +87,9 @@ public  static void displayacc(int user_accno) {
 		if(amount>ad.getDeposite())
 		{
 			System.out.println("Insufficient Amount");
+			System.out.println("================================================");
 			displayacc(user_accno);
+			
 			
 		}
 		else {
@@ -110,11 +121,14 @@ public  static void displayacc(int user_accno) {
 			ad.setUser_pin(user_pin);
 			
 			System.out.println("User Pin:"+ad.getUser_pin());
+			System.out.println("================================================");
+			
 			mapaccount.put(accno, ad);
 			display();
 		}
 		else {
 			System.out.println("User Does not exist");
+			System.out.println("================================================");
 			display();
 		}
 		
