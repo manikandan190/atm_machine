@@ -3,6 +3,10 @@ package com.example.Todo._Using_DB3;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+
+
+
+
 import java.util.UUID;
 @Entity
 public class Todo {
