@@ -15,7 +15,7 @@ body {
   display: flex;
   width: 100%;
   justify-content: center;
-  padding-top: 25px;
+  
 }
 
 /* ----------------------- BUILDING ----------------------- */
@@ -67,7 +67,7 @@ body {
   width: 59px;
   height: 57px;
 
-  transition: 5s transform ease-in-out;
+  transition: 1s transform ease-in-out;
   z-index: 1;
 }
 
@@ -104,7 +104,7 @@ body {
 
 .floor-num {
   position: absolute;
-  top: 8px;
+
   left: 50%;
 
   width: 20px;

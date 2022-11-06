@@ -1,13 +1,13 @@
-const numOfFloors =25;
-let leftLiftDirection = "";
-let rightLiftDirection = "";
-let threeLiftDirection = "";
-let fourLiftDirection = "";
+const numOfFloors =10;
+let leftLiftDirection = "up";
+let rightLiftDirection = "up";
+let threeLiftDirection = "up";
+let fourLiftDirection = "up";
 const duration=20;
+let UpButton=[]
 
 
-
-
+let upMap=new Map();
 let leftLiftTotalArrayUp = [];
 let leftLiftFrontDown = [];
 let leftLiftBackDown = [];
@@ -71,8 +71,14 @@ setInterval(function () {
   
   var elementLift1=document.getElementById("lift1")
   var position1=elementLift1.getBoundingClientRect();
-  
-  
+  console.log(leftLiftDirection)
+  console.log(rightLiftDirection)
+  console.log(threeLiftPos)
+  console.log(fourLiftPos)
+
+
+
+
   leftLiftPos=Math.round(Math.abs((position1.top-100*numOfFloors-194.72918701171875)/100));
   if(leftLiftTotalArray.length!==0)
   {
@@ -80,11 +86,11 @@ setInterval(function () {
     {
       leftLiftDirection="up"
     }
-    else {
+   if(leftLiftTotalArray[0]-leftLiftPos<0) {
       leftLiftDirection="down"
     }
   }
-  console.log(leftLiftPos+" "+leftLiftDirection)
+  // console.log(leftLiftPos+" "+leftLiftDirection)
 
 
 
@@ -103,11 +109,11 @@ setInterval(function () {
     {
       rightLiftDirection="up"
     }
-    else {
+    if(rightLiftTotalArray[0]-leftLiftPos<0) {
       rightLiftDirection="down"
     }
   }
-  console.log(rightLiftPos+" "+rightLiftDirection)
+  // console.log(rightLiftPos+" "+rightLiftDirection)
 
   
   // console.log(rightLiftPos)
@@ -120,26 +126,26 @@ setInterval(function () {
     {
       threeLiftDirection="up"
     }
-    else {
+    if(threeLiftTotalArray[0]-leftLiftPos<0)
+ {
       threeLiftDirection="down"
     }
   }
-  console.log(threeLiftPos+" "+threeLiftDirection)
+  // console.log(threeLiftPos+" "+threeLiftDirection)
   // console.log(threeLiftPos)
   var elementLift4=document.getElementById("lift4")
   var position4=elementLift4.getBoundingClientRect();
-  fourLiftPos=Math.round(Math.abs((position4.top-100*numOfFloors-194.72918701171875)/100));
   if(fourLiftTotalArray.length!==0)
   {
     if(fourLiftTotalArray[0]-leftLiftPos>=0)
     {
       fourLiftDirection="up"
     }
-    else {
+    if(fourLiftTotalArray[0]-leftLiftPos<0) {
       fourLiftDirection="down"
     }
   }
-  console.log(fourLiftPos+" "+fourLiftDirection)
+  // console.log(fourLiftPos+" "+fourLiftDirection)
   // console.log(fourLiftPos)
  
  
@@ -240,11 +246,12 @@ const displayCallButtons = () => {
           <button class="call-button call-button--${index}-down" id="down">↓</button>
           
         </div>
+        </div>
         <div class="lift-buttons lift-buttons--left lift-buttons--${index}--left"></div>
         <div class="lift-buttons lift-buttons--right lift-buttons--${index}--right"></div>
         <div class="lift-buttons lift-buttons--three lift-buttons--${index}--three"></div>
         <div class="lift-buttons lift-buttons--four lift-buttons--${index}--four"></div>
-      </div>
+      
     `;
   }
   return `${displayAllButtonsHTML}`
@@ -318,7 +325,7 @@ const moveLift = (floor, side) => {
 
   if (side === 'left') {
     lift.style.transform = `translateY(${floor * -100}px)`;
-    lift.style.opacity = '1';
+ 
    
 
  
@@ -332,19 +339,19 @@ const moveLift = (floor, side) => {
         moveLift( leftLiftTotalArray.shift(), 'left')
      
         if (leftLiftFrontDown.includes(leftLiftTotalArray[0])) {
-          console.log();
+          ;
           // console.log(leftLiftFrontDown.shift());
         }
         if (leftLiftFrontUp.includes(leftLiftTotalArray[0])) {
-          console.log();
+          ;
           // console.log(leftLiftFrontUp.shift());
         }
         if (leftLiftBackDown.includes(leftLiftTotalArray[0])) {
-          console.log();
+          ;
           // console.log(leftLiftBackDown.shift());
         }
         if (leftLiftBackUp.includes(leftLiftTotalArray[0])) {
-          console.log();
+          ;
           // console.log(leftLiftBackUp.shift());
         }
         // console.log("leftLiftTotalArray"+leftLiftTotalArray)
@@ -363,7 +370,8 @@ const moveLift = (floor, side) => {
       }
 
 
-    }, 5000);
+    }, 1000
+);
 
 
 
@@ -381,19 +389,19 @@ const moveLift = (floor, side) => {
         moveLift(rightLiftPos = rightLiftTotalArray.shift(), 'right')
 
         if (rightLiftFrontDown.includes(rightLiftTotalArray[0])) {
-          console.log();
+          ;
           console.log(rightLiftFrontDown.shift());
         }
         if (rightLiftFrontUp.includes(rightLiftTotalArray[0])) {
-          console.log();
+          ;
           console.log(rightLiftFrontUp.shift());
         }
         if (rightLiftBackDown.includes(rightLiftTotalArray[0])) {
-          console.log();
+          ;
           console.log(rightLiftBackDown.shift());
         }
         if (rightLiftBackUp.includes(rightLiftTotalArray[0])) {
-          console.log();
+          ;
           console.log(rightLiftBackUp.shift());
         }
         console.log("rightLiftTotalArray"+rightLiftTotalArray)
@@ -412,7 +420,8 @@ const moveLift = (floor, side) => {
 
 
 
-    }, 5000);
+    }, 1000
+);
 
   }
   else if(side==="three"){
@@ -428,19 +437,19 @@ const moveLift = (floor, side) => {
         moveLift(threeLiftPos = threeLiftTotalArray.shift(), 'three')
 
         if (threeLiftFrontDown.includes(threeLiftTotalArray[0])) {
-          console.log();
+          ;
           console.log(threeLiftFrontDown.shift());
         }
         if (threeLiftFrontUp.includes(threeLiftTotalArray[0])) {
-          console.log();
+          ;
           console.log(threeLiftFrontUp.shift());
         }
         if (threeLiftBackDown.includes(threeLiftTotalArray[0])) {
-          console.log();
+          ;
           console.log(threeLiftBackDown.shift());
         }
         if (threeLiftBackUp.includes(threeLiftTotalArray[0])) {
-          console.log();
+          ;
           console.log(threeLiftBackUp.shift());
         }
         console.log("Three LIft total Array"+threeLiftTotalArray)
@@ -460,7 +469,7 @@ const moveLift = (floor, side) => {
 
 
 
-    }, 5000);
+    }, 1000);
 
   }
   else{
@@ -475,19 +484,19 @@ const moveLift = (floor, side) => {
         moveLift(fourLiftPos = fourLiftTotalArray.shift(), 'four')
 
         if (fourLiftFrontDown.includes(fourLiftTotalArray[0])) {
-          console.log();
+          ;
           console.log(fourLiftFrontDown.shift());
         }
         if (fourLiftFrontUp.includes(fourLiftTotalArray[0])) {
-          console.log();
+          ;
           console.log(fourLiftFrontUp.shift());
         }
         if (fourLiftBackDown.includes(fourLiftTotalArray[0])) {
-          console.log();
+          ;
           console.log(fourLiftBackDown.shift());
         }
         if (fourLiftBackUp.includes(fourLiftTotalArray[0])) {
-          console.log();
+          ;
           console.log(fourLiftBackUp.shift());
         }
         console.log(fourLiftTotalArray)
@@ -506,7 +515,7 @@ const moveLift = (floor, side) => {
 
 
 
-    }, 5000);
+    }, 1000);
   }
 
 };
@@ -592,12 +601,20 @@ const moveLiftWithControls = (index, side) => {
 const functionalityHandler = (e) => {
   console.clear();
   console.log(leftLiftTotalArray)
-  console.log(e.target.id)
   for (let index = numOfFloors; index >= 0; index--) {
 
     if (e.target.classList.contains(`call-button--${index}-up`) || e.target.classList.contains(`call-button--${index}-down`)) {
-      console.log(e.target.id)
-      currentPos = index;
+   
+      switch(e.target.id)
+      {
+        case `up`:
+          liftButtonSort(index,'up')
+          break;
+          
+        case `down`:
+          liftButtonSort(index,'down')
+          break;
+      }
     
 
 
@@ -620,42 +637,34 @@ const functionalityHandler = (e) => {
     switch (e.target.id) {
       case `lift-floor-button-left--${index}`:
 
-        document.getElementById(`lift-floor-button-left--${index}`).style.backgroundColor = 'Red';
-
-
-        currentPos = index;
-    
-
-        leftLiftSort(index);
+        if(e.target.style.backgroundColor!=="red"&& leftLiftPos!==index&&(index%2!==0||index===0))
+        {
+          
+         document.getElementById(`lift-floor-button-left--${index}`).style.backgroundColor = 'Red';
+         leftLiftSort(index);}
 
 
         break;
 
 
       case `lift-floor-button-right--${index}`:
-        document.getElementById(`lift-floor-button-right--${index}`).style.backgroundColor = 'Red';
-        currentPos = index;
-      
-
-
-
-        rightLiftSort(index);
+        if(e.target.style.backgroundColor!=="red"&& rightLiftPos!==index&&index%2===0)
+        {
+         document.getElementById(`lift-floor-button-right--${index}`).style.backgroundColor = 'Red';
+         rightLiftSort(index);}
         break;
         case `lift-floor-button-three--${index}`:
-          console.log("Hello")
-          document.getElementById(`lift-floor-button-three--${index}`).style.backgroundColor = 'Red';
-          currentPos = index;
-  
-  
-        threeLiftSort(index);
-  
+          if(e.target.style.backgroundColor!=="red"&& threeLiftPos!==index)
+          {
+           document.getElementById(`lift-floor-button-three--${index}`).style.backgroundColor = 'Red';
+           threeLiftSort(index);}
         
           break;
           case `lift-floor-button-four--${index}`:
-            document.getElementById(`lift-floor-button-four--${index}`).style.backgroundColor = 'Red';
-            currentPos = index;
-      
-           fourLiftSort(index);
+            if(e.target.style.backgroundColor!=="red"&& fourLiftPos!==index)
+            {
+             document.getElementById(`lift-floor-button-four--${index}`).style.backgroundColor = 'Red';
+             fourLiftSort(index);}
     
            
             break;
@@ -667,13 +676,96 @@ const functionalityHandler = (e) => {
 functionality.addEventListener('click', functionalityHandler);
 
 
+function liftButtonSort(index,direction)
+{
+if(direction==="up")
+{
+  upMap.clear();
+ 
+if((leftLiftDirection==="up"||leftLiftDirection==="")&&index%2!==0)
+{upMap.set(Math.abs(index-leftLiftPos),"left")}
+if((rightLiftDirection==="up"||rightLiftDirection==="")&&index%2===0)
+{upMap.set(Math.abs(index-rightLiftPos),"right")}
+if(threeLiftPos==="up"||threeLiftPos==="")
+{upMap.set(Math.abs(index-threeLiftPos),"three")}
+if(fourLiftPos==="up"||fourLiftPos==="")
+{upMap.set(Math.abs(index-fourLiftPos),"four")}
+
+const sortNumAsc = new Map([...upMap].sort((a, b) => a[0] - b[0]));
+console.log(sortNumAsc)
+
+const firstElement= sortNumAsc.entries().next().value;
+if(index%2!==0)
+{if(firstElement[1]==="left")
+{
+  leftLiftSort(index);
+}}
+if(index%2===0)
+{
+if(firstElement[1]==="right")
+{
+  rightLiftSort(index);
+}}
+if(firstElement[1]==="three")
+{
+  threeLiftSort(index);
+}
+if(firstElement[1]==="four")
+{
+  fourLiftSort(index);
+}
+
+}
+else
+{
+  upMap.clear();
+  if((leftLiftDirection==="down"||leftLiftDirection==="")&&index%2!==0)
+  {upMap.set(Math.abs(index-leftLiftPos),"left")}
+  if((rightLiftDirection==="down"||rightLiftDirection==="")&&index%2===0)
+ { upMap.set(Math.abs(index-rightLiftPos),"right")}
+ if(threeLiftDirection==="down"||rightLiftDirection==="")
+  {upMap.set(Math.abs(index-threeLiftPos),"three")}
+  if(fourLiftDirection==="down"||fourLiftDirection==="")
+  {upMap.set(Math.abs(index-fourLiftPos),"four")}
+  const sortNumAsc = new Map([...upMap].reverse((a, b) => a[0] - b[0]));
+  console.log(sortNumAsc)
+  
+  const firstElement= sortNumAsc.entries().next().value;
+console.log(firstElement[1])
+if(index%2!==0)
+{
+
+
+if(firstElement[1]==="left")
+{
+  leftLiftSort(index);
+}}
+if(index%2===0)
+{
+if(firstElement[1]==="right"&&index%2===0)
+{
+  rightLiftSort(index);
+}}
+if(firstElement[1]==="three")
+{
+  threeLiftSort(index);
+}
+if(firstElement[1]==="four")
+{
+  fourLiftSort(index);
+}
+
+}
+
+}
+
 function leftLiftSort(index) {
   leftLiftArray.push(index);
 
   if (index - leftLiftPos > 0) {
     leftLiftDirection = "up"
   }
-  else {
+ if(index-leftLiftPos<0) {
     leftLiftDirection = "down"
   }
   if (leftLiftDirection === "up") {
@@ -690,7 +782,7 @@ function leftLiftSort(index) {
 
     leftLiftTotalArrayUp = leftLiftFrontUp.concat(leftLiftBackUp);
   }
-  else {
+  if(leftLiftDirection==="down") {
 
 
 
@@ -712,8 +804,9 @@ function leftLiftSort(index) {
 
   if (leftLiftDirection === "up") {
     leftLiftTotalArray = leftLiftTotalArrayDown.concat(leftLiftTotalArrayUp);
-
+    
     moveLiftWithControls(leftLiftTotalArray[0], 'left');
+    leftLiftDirection="up"
 
 
   }
@@ -723,7 +816,7 @@ function leftLiftSort(index) {
     leftLiftTotalArray = leftLiftTotalArrayUp.concat(leftLiftTotalArrayDown);
 
     moveLiftWithControls(leftLiftTotalArray[0], 'left');
-
+    leftLiftDirection="down"
 
 
 
@@ -743,7 +836,7 @@ function rightLiftSort(index) {
   if (index - rightLiftPos > 0) {
     rightLiftDirection = "up"
   }
-  else {
+ if(index - rightLiftPos < 0) {
     rightLiftDirection = "down"
   }
   if (rightLiftDirection === "up") {
@@ -758,7 +851,7 @@ function rightLiftSort(index) {
     }
     console.log("rightLiftFrontUp" + rightLiftFrontUp);
     console.log("rightLiftBackUp" + rightLiftBackUp);
-    console.log("")
+    
 
     rightLiftTotalArrayUp = rightLiftFrontUp.concat(rightLiftBackUp);
   }
@@ -787,6 +880,7 @@ function rightLiftSort(index) {
     rightLiftTotalArray = rightLiftTotalArrayDown.concat(rightLiftTotalArrayUp);
 
     moveLiftWithControls(rightLiftTotalArray[0], 'right');
+    rightLiftDirection="up"
 
 
   }
@@ -797,7 +891,7 @@ function rightLiftSort(index) {
 
     moveLiftWithControls(rightLiftTotalArray[0], 'right');
 
-
+rightLiftDirection="down"
 
 
 
@@ -819,7 +913,7 @@ function threeLiftSort(index) {
   if (index - threeLiftPos > 0) {
     threeLiftDirection = "up"
   }
-  else {
+  if (index - threeLiftPos < 0){
     threeLiftDirection = "down"
   }
   if (threeLiftDirection === "up") {
@@ -834,7 +928,7 @@ function threeLiftSort(index) {
     }
     console.log("threeLiftFrontUp" + threeLiftFrontUp);
     console.log("threeLiftBackUp" + threeLiftBackUp);
-    console.log("")
+    
 
     threeLiftTotalArrayUp = threeLiftFrontUp.concat(threeLiftBackUp);
   }
@@ -863,7 +957,7 @@ function threeLiftSort(index) {
     threeLiftTotalArray = threeLiftTotalArrayDown.concat(threeLiftTotalArrayUp);
 
     moveLiftWithControls(threeLiftTotalArray[0], 'three');
-
+threeLiftDirection="up"
 
   }
   else {
@@ -872,7 +966,7 @@ function threeLiftSort(index) {
     threeLiftTotalArray = threeLiftTotalArrayUp.concat(threeLiftTotalArrayDown);
 
     moveLiftWithControls(threeLiftTotalArray[0], 'three');
-
+threeLiftDirection="down"
 
 
 
@@ -904,7 +998,7 @@ function fourLiftSort(index) {
     }
     console.log("fourLiftFrontUp" + fourLiftFrontUp);
     console.log("fourLiftBackUp" + fourLiftBackUp);
-    console.log("")
+    
 
     fourLiftTotalArrayUp = fourLiftFrontUp.concat(fourLiftBackUp);
   }
@@ -933,6 +1027,7 @@ function fourLiftSort(index) {
     fourLiftTotalArray = fourLiftTotalArrayDown.concat(fourLiftTotalArrayUp);
 
     moveLiftWithControls(fourLiftTotalArray[0], 'four');
+    fourLiftDirection="up"
 
 
   }
@@ -942,6 +1037,7 @@ function fourLiftSort(index) {
     fourLiftTotalArray = fourLiftTotalArrayUp.concat(fourLiftTotalArrayDown);
 
     moveLiftWithControls(fourLiftTotalArray[0], 'four');
+    fourLiftDirection="down"
 
 
 
